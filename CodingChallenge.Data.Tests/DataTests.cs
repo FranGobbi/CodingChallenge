@@ -21,6 +21,12 @@ namespace CodingChallenge.Data.Tests
             Assert.AreEqual("<h1>Empty list of shapes!</h1>",
                 FormaGeometrica.Imprimir(new List<Cuadrado>(), new List<Triangulo>(), new List<Circulo>(), new List<Trapecio>(), new List<Rectangulo>(), "Ingles"));
         }
+        [TestCase]
+        public void TestResumenListaVaciaFormasEnFrances()
+        {
+            Assert.AreEqual("<h1>Liste vide de formes!</h1>",
+                FormaGeometrica.Imprimir(new List<Cuadrado>(), new List<Triangulo>(), new List<Circulo>(), new List<Trapecio>(), new List<Rectangulo>(), "Frances"));
+        }
 
         [TestCase]
         public void TestResumenListaConUnCuadrado()
@@ -33,6 +39,16 @@ namespace CodingChallenge.Data.Tests
             Assert.AreEqual("<h1>Reporte de Formas</h1>1 Cuadrado | Área 25 | Perímetro 20 <br/>TOTAL:<br/>1 Forma Perímetro 20 Área 25", resumen);
         }
 
+        [TestCase]
+        public void TestResumenListaConUnFrances()
+        {
+            var cuadrados = new List<Cuadrado> { new Cuadrado(5) };
+
+
+            var resumen = FormaGeometrica.Imprimir(cuadrados, null, null, null, null, "Frances");
+
+            Assert.AreEqual("<h1>Rapport de Formes</h1>1 Carré | Surface 25 | Périmètre 20 <br/>TOTAL:<br/>1 Forme Périmètre 20 Surface 25", resumen);
+        }
         [TestCase]
         public void TestResumenListaConMasCuadrados()
         {

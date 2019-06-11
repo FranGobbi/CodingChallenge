@@ -75,6 +75,24 @@ namespace CodingChallenge.Data.Classes
                     _descRectangulosPlural = "Rectangles";
                     _descListaVacia = "Empty list of shapes!";
                     break;
+                case "Frances":
+                    _descForma = "Forme";
+                    _descFormasPlural = "Formes";
+                    _descArea = "Surface";
+                    _descPerimetro = "Périmètre";
+                    _descCuadrado = "Carré";
+                    _descTriangulo = "Triangle";
+                    _descCirculo = "Cercle";
+                    _descTrapecio = "Trapèze";
+                    _descRectangulo = "Rectangle";
+                    _descReporte = "Rapport de Formes";
+                    _descCuadradoPlural = "carrés";
+                    _descTrianguloPlural = "Triangles";
+                    _descCirculoPlural = "Cercles";
+                    _descTrapecioPlural = "Trapèzes";
+                    _descRectangulosPlural = "Rectangles";
+                    _descListaVacia = "Liste vide de formes!";
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(@"Idioma desconocido");
             }
