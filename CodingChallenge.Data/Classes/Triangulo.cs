@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CodingChallenge.Data.Classes
 {
-    public class Triangulo : Figura
+    public class Triangulo
 
     {
         private readonly decimal _base;
@@ -13,19 +13,35 @@ namespace CodingChallenge.Data.Classes
         private readonly decimal? _ladoDerecho;
         private readonly decimal? _altura;
 
-        public Triangulo(decimal lado)
+        public Triangulo(List<decimal> listaLados)
         {
-            _base = lado;
-        }
-        public Triangulo(decimal baseTr, decimal altura, decimal ladoIzquierdo, decimal ladoDerecho)
-        {
-            _base = baseTr;
-            _ladoIzquierdo = ladoIzquierdo;
-            _ladoDerecho = ladoDerecho;
-            _altura = altura;
+            if (listaLados.Count == 1)
+            {
+                _base = listaLados[0];
+            }
+            else if (listaLados.Count == 4)
+            {
+                _base = listaLados[0];
+                _altura = listaLados[1];
+                _ladoIzquierdo = listaLados[2];
+                _ladoDerecho = listaLados[3];
+            }
+            else throw new ArgumentOutOfRangeException(@"Error al crear Triangulo");
         }
 
-        public override decimal Area()
+        //public Triangulo(decimal lado)
+        //{
+        //    _base = lado;
+        //}
+        //public Triangulo(decimal baseTr, decimal altura, decimal ladoIzquierdo, decimal ladoDerecho)
+        //{
+        //    _base = baseTr;
+        //    _ladoIzquierdo = ladoIzquierdo;
+        //    _ladoDerecho = ladoDerecho;
+        //    _altura = altura;
+        //}
+
+        public decimal Area()
         {
             if (_altura.HasValue)
             {
@@ -34,7 +50,7 @@ namespace CodingChallenge.Data.Classes
             return ((decimal)Math.Sqrt(3) / 4) * _base * _base;
         }
 
-        public override decimal Perimetro()
+        public decimal Perimetro()
         {
             if (_altura.HasValue)
             {

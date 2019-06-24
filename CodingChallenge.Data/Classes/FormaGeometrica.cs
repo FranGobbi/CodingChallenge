@@ -15,19 +15,28 @@ using System.Text;
 namespace CodingChallenge.Data.Classes
 {
     public class FormaGeometrica
-    {   
-        public static string Imprimir(List<Cuadrado> cuadrados, List<Triangulo> triangulos, List<Circulo> circulos, List<Trapecio> trapecios, List<Rectangulo> rectangulos, string idioma)
+    {
+        public List<Circulo> listaCirculos;
+        public List<Cuadrado> listaCuadrados;
+        public List<Rectangulo> listaRectangulos;
+        public List<Trapecio> listaTrapecios;
+        public List<Triangulo> listaTriangulos;
+        public string Imprimir(List<Figura> listaFiguras, string idioma)
         {
             Traductor traductor = new Traductor(idioma);
 
             var sb = new StringBuilder();
 
 
-            int cantCuadrados = cuadrados != null ? cuadrados.Count : 0;
-            int cantCirculos = circulos != null ? circulos.Count : 0;
-            int cantTriangulos = triangulos != null ? triangulos.Count : 0;
-            int cantTrapecios = trapecios != null ? trapecios.Count : 0;
-            int cantRectangulos = rectangulos != null ? rectangulos.Count : 0;
+            foreach (Figura figura in listaFiguras)
+            {
+                CrearFigura(figura);
+            }
+            int cantCuadrados = listaCuadrados != null ? listaCuadrados.Count : 0;
+            int cantCirculos = listaCirculos != null ? listaCirculos.Count : 0;
+            int cantTriangulos = listaTriangulos != null ? listaTriangulos.Count : 0;
+            int cantTrapecios = listaTrapecios != null ? listaTrapecios.Count : 0;
+            int cantRectangulos = listaRectangulos != null ? listaRectangulos.Count : 0;
             int cantFiguras = cantCuadrados + cantCirculos + cantTriangulos + cantTrapecios + cantRectangulos;
 
             if (cantFiguras == 0)
@@ -37,7 +46,7 @@ namespace CodingChallenge.Data.Classes
             else
             {
                 sb.Append("<h1>" + traductor.getDescReporte() + "</h1>");
-                
+
                 decimal areaCuadrados = 0;
                 decimal areaCirculos = 0;
                 decimal areaTriangulos = 0;
@@ -53,33 +62,33 @@ namespace CodingChallenge.Data.Classes
 
                 if (cantCuadrados != 0)
                 {
-                    areaCuadrados = cuadrados.Sum(x => x.Area());
-                    perimetroCuadrados = cuadrados.Sum(x => x.Perimetro());
+                    areaCuadrados = listaCuadrados.Sum(x => x.Area());
+                    perimetroCuadrados = listaCuadrados.Sum(x => x.Perimetro());
                 }
                 if (cantCirculos != 0)
                 {
-                    areaCirculos = circulos.Sum(x => x.Area());
-                    perimetroCirculos = circulos.Sum(x => x.Perimetro());
+                    areaCirculos = listaCirculos.Sum(x => x.Area());
+                    perimetroCirculos = listaCirculos.Sum(x => x.Perimetro());
                 }
-                if (cantTriangulos!= 0)
+                if (cantTriangulos != 0)
                 {
-                    areaTriangulos = triangulos.Sum(x => x.Area());
-                    perimetroTriangulos = triangulos.Sum(x => x.Perimetro());
+                    areaTriangulos = listaTriangulos.Sum(x => x.Area());
+                    perimetroTriangulos = listaTriangulos.Sum(x => x.Perimetro());
                 }
                 if (cantTrapecios != 0)
                 {
-                    areaTrapecios = trapecios.Sum(x => x.Area());
-                    perimetroTrapecios = trapecios.Sum(x => x.Perimetro());
+                    areaTrapecios = listaTrapecios.Sum(x => x.Area());
+                    perimetroTrapecios = listaTrapecios.Sum(x => x.Perimetro());
                 }
                 if (cantRectangulos != 0)
                 {
-                    areaRectangulos = rectangulos.Sum(x => x.Area());
-                    perimetroRectangulos = rectangulos.Sum(x => x.Perimetro());
+                    areaRectangulos = listaRectangulos.Sum(x => x.Area());
+                    perimetroRectangulos = listaRectangulos.Sum(x => x.Perimetro());
                 }
                 areaTotal = areaCuadrados + areaCirculos + areaRectangulos + areaTrapecios + areaTriangulos;
                 perimTotal = perimetroCuadrados + perimetroCirculos + perimetroTriangulos + perimetroTrapecios + perimetroRectangulos;
 
-                sb.Append(ObtenerLinea(cantCuadrados, areaCuadrados, perimetroCuadrados, "Cuadrado" , traductor));
+                sb.Append(ObtenerLinea(cantCuadrados, areaCuadrados, perimetroCuadrados, "Cuadrado", traductor));
                 sb.Append(ObtenerLinea(cantCirculos, areaCirculos, perimetroCirculos, "Circulo", traductor));
                 sb.Append(ObtenerLinea(cantTriangulos, areaTriangulos, perimetroTriangulos, "Triangulo", traductor));
                 sb.Append(ObtenerLinea(cantTrapecios, areaTrapecios, perimetroTrapecios, "Trapecio", traductor));
@@ -87,11 +96,53 @@ namespace CodingChallenge.Data.Classes
 
                 // FOOTER
                 sb.Append("TOTAL:<br/>");
-                sb.Append(cantFiguras +  " " + (cantFiguras > 1 ? traductor.getDescFormasPlural() : traductor.getDescForma()) +" ");
+                sb.Append(cantFiguras + " " + (cantFiguras > 1 ? traductor.getDescFormasPlural() : traductor.getDescForma()) + " ");
                 sb.Append((traductor.getDescPerimetro()) + " " + (perimTotal).ToString("#.##") + " ");
                 sb.Append(traductor.getDescArea() + " " + (areaTotal).ToString("#.##"));
             }
             return sb.ToString();
+        }
+
+        private void CrearFigura(Figura figura)
+        {
+            switch (figura.getForma())
+            {
+                case Figura.Circulo:
+                    if (listaCirculos == null)
+                    {
+                        listaCirculos = new List<Circulo>();
+                    }
+                    listaCirculos.Add(new Circulo(figura.getLados()));
+                    break;
+                case Figura.Cuadrado:
+                    if (listaCuadrados == null)
+                    {
+                        listaCuadrados = new List<Cuadrado>();
+                    }
+                    listaCuadrados.Add(new Cuadrado(figura.getLados()));
+                    break;
+                case Figura.Rectangulo:
+                    if (listaRectangulos == null)
+                    {
+                        listaRectangulos = new List<Rectangulo>();
+                    }
+                    listaRectangulos.Add(new Rectangulo(figura.getLados()));
+                    break;
+                case Figura.Trapecio:
+                    if (listaTrapecios == null)
+                    {
+                        listaTrapecios = new List<Trapecio>();
+                    }
+                    listaTrapecios.Add(new Trapecio(figura.getLados()));
+                    break;
+                case Figura.Triangulo:
+                    if (listaTriangulos == null)
+                    {
+                        listaTriangulos = new List<Triangulo>();
+                    }
+                    listaTriangulos.Add(new Triangulo(figura.getLados()));
+                    break;
+            }
         }
 
         private static string ObtenerLinea(int cantidad, decimal area, decimal perimetro, string figura, Traductor traductor)

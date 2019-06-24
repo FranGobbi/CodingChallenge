@@ -5,24 +5,33 @@ using System.Text;
 
 namespace CodingChallenge.Data.Classes
 {
-    public class Rectangulo : Figura
+    public class Rectangulo 
 
     {
         private readonly decimal _base;
         private readonly decimal _altura;
-
-        public Rectangulo(decimal lado, decimal altura)
+        public Rectangulo(List<decimal> listaLados)
         {
-            _base = lado;
-            _altura = altura;
+            if (listaLados.Count == 2)
+            {
+                _base = listaLados[0];
+                _altura = listaLados[1];
+            }
+            else throw new ArgumentOutOfRangeException(@"Error al crear Rectangulo");
         }
 
-        public override decimal Area()
+        //public Rectangulo(decimal lado, decimal altura)
+        //{
+        //    _base = lado;
+        //    _altura = altura;
+        //}
+
+        public decimal Area()
         {
             return _base * _altura;
         }
 
-        public override decimal Perimetro()
+        public decimal Perimetro()
         {
             return _base * 2 + _altura * 2;
         }

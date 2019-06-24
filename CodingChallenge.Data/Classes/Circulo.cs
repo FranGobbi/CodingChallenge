@@ -5,21 +5,30 @@ using System.Text;
 
 namespace CodingChallenge.Data.Classes
 {
-    public class Circulo : Figura
+    public class Circulo 
     {
         private readonly decimal _diametro;
 
-        public Circulo(decimal diametro)
+        public Circulo(List<decimal> listaLados)
         {
-            _diametro = diametro;
+            if (listaLados.Count == 1)
+            {
+                _diametro = listaLados[0];
+            }
+            else throw new ArgumentOutOfRangeException(@"Error al crear Circulo");
         }
-        
-        public override decimal Area()
+
+        //public Circulo(decimal diametro)
+        //{
+        //    _diametro = diametro;
+        //}
+
+        public decimal Area()
         {
             return (decimal)Math.PI * (_diametro / 2) * (_diametro / 2);
         }
 
-        public override decimal Perimetro()
+        public decimal Perimetro()
         {
             return (decimal)Math.PI * _diametro;
         }
